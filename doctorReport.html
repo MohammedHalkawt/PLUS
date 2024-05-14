@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Report</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .navbar {
+            background-color: #519cba;
+            color: #fff;
+            padding: 10px 20px;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .navbar li {
+            margin-right: 20px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .navbar a:hover {
+            color: #519cba;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .card-header {
+            background-color: #519cba;
+            color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #519cba;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <ul>
+            <li><a href="DHome.html">Home</a></li>
+            <li><a href="DContact.html">Contact Us</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            <h1>Doctor's Report</h1>
+
+            <!-- Patient ID Input Field -->
+            <form id="patientIdForm">
+                <div class="form-group">
+                    <label for="patientId">Enter Patient ID:</label>
+                    <input type="text" class="form-control" id="patientId" placeholder="Patient ID">
+                </div>
+                <button type="button" class="btn btn-primary" onclick="fetchPatientDetails()">Fetch Patient Details</button>
+            </form>
+
+            <!-- Patient Details Section -->
+            <div id="patientDetailsSection" style="display: none;">
+                <h2>Patient Details</h2>
+                <div class="card">
+                    <div class="card-body" id="patientDetails">
+                        <!-- Patient details will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Previous Reports Section -->
+            <div id="previousReportsSection" style="display: none;">
+                <h2>Previous Reports</h2>
+                <!-- Previous reports will be dynamically inserted here -->
+                <div id="previousReports">
+                    
+                </div>
+            </div>
+
+            <!-- Doctor's Report Form -->
+            <div id="doctorReportForm" style="display: none;">
+                <h2>Doctor's Report</h2>
+                <form id="reportForm">
+                    <div class="form-group">
+                        <label for="diagnosis">Diagnosis</label>
+                        <textarea class="form-control" id="diagnosis" rows="3" placeholder="Enter diagnosis"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="prescription">Prescription</label>
+                        <textarea class="form-control" id="prescription" rows="3" placeholder="Enter prescription"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Report</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Modal -->
+    <div class="modal" id="reportModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Report Details</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" id="reportDetails">
+                    <!-- Report details will be inserted here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function fetchPatientDetails() {
+            var patientId = document.getElementById('patientId').value;
+            // Here you would make an AJAX request to fetch patient details and previous reports based on the ID
+            // For demonstration purposes, I'm just hardcoding sample data
+            var patientDetails = {
+                name: "John Doe",
+                age: 35,
+                gender: "Male"
+            };
+            var previousReports = [
+                { date: "Jan 10, 2024", diagnosis: "Fever", medication: "Paracetamol", remarks: "Patient advised to follow up after three days if symptoms persist." },
+                { date: "Feb 15, 2024", diagnosis: "Sore throat", medication: "Antibiotics", remarks: "Follow-up appointment scheduled after a week." }
+            ];
+            // Display patient details
+            document.getElementById('patientDetails').innerHTML = `
+                <p><strong>Name:</strong> ${patientDetails.name}</p>
+                <p><strong>Age:</strong> ${patientDetails.age}</p>
+                <p><strong>Gender:</strong> ${patientDetails.gender}</p>
+            `;
+            // Display previous reports
+            var reportsHtml = '';
+            previousReports.forEach(function(report, index) {
+                reportsHtml += `
+                    <div class="card mb-3" onclick="showReportDetails(${index})" style="cursor:pointer;">
+                        <div class="card-header">
+                            Report Date: ${report.date}
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text"><strong>Diagnosis:</strong> ${report.diagnosis}</p>
+                            <p class="card-text"><strong>Medication:</strong> ${report.medication}</p>
+                            <p class="card-text"><strong>Remarks:</strong> ${report.remarks}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('previousReports').innerHTML = reportsHtml;
+
+            // Show sections
+            document.getElementById('patientDetailsSection').style.display = 'block';
+            document.getElementById('previousReportsSection').style.display = 'block';
+            document.getElementById('doctorReportForm').style.display = 'block';
+            document.getElementById('patientIdForm').style.display = 'none'; // Hide the patient ID form
+        }
+
+        function showReportDetails(index) {
+            const previousReports = [
+                {
+                    doctor: "Dr. John Smith",
+                    patient: "John Doe",
+                    dob: "Jan 1, 1990",
+                    gender: "Male",
+                    diagnosis: "Fever, high body temperature observed. Recommended bed rest and medication.",
+                    medication: "Paracetamol, 500mg tablets, 3 times a day after meals.",
+                    remarks: "Patient advised to follow up after three days if symptoms persist."
+                },
+                {
+                    doctor: "Dr. Jane Doe",
+                    patient: "Jane Smith",
+                    dob: "Feb 5, 1985",
+                    gender: "Female",
+                    diagnosis: "Sore throat, coughing, and mild fever. Symptoms indicative of a common cold.",
+                    medication: "Antibiotics prescribed for throat infection. Cough syrup recommended for cough relief.",
+                    remarks: "Patient advised to take complete rest and maintain hydration. Follow-up appointment scheduled after a week."
+                }
+            ];
+
+            const reportDetailsHtml = `
+                <p><strong>Doctor:</strong> ${previousReports[index].doctor}</p>
+                <p><strong>Patient:</strong> ${previousReports[index].patient}</p>
+                <p><strong>Date of Birth:</strong> ${previousReports[index].dob}</p>
+                <p><strong>Gender:</strong> ${previousReports[index].gender}</p>
+                <p><strong>Diagnosis:</strong> ${previousReports[index].diagnosis}</p>
+                <p><strong>Medication:</strong> ${previousReports[index].medication}</p>
+                <p><strong>Remarks:</strong> ${previousReports[index].remarks}</p>
+            `;
+
+            $('#reportDetails').html(reportDetailsHtml);
+            $('#reportModal').modal('show');
+        }
+    </script>
+</body>
+</html>

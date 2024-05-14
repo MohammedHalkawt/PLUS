@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLUS Clinic - Book an Appointment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #519cba;
+            color: #fff;
+            width: 100%;
+            padding: 10px 20px;
+            box-sizing: border-box;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .navbar li {
+            margin-right: 20px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .navbar a:hover {
+            color: #519cba;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select, textarea {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #519cba;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        button.decline {
+            background-color: #dc3545;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="container">
+            <ul>
+                <li><a href="Home.html" class="navbar-link">Home</a></li>
+                <li><a href="pReports.html" class="navbar-link">Reports</a></li>
+                <li><a href="PContactPage.html" class="navbar-link">Contact Us</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            <header>
+                <h1>Book an Appointment</h1>
+            </header>
+
+            <form id="appointment-form">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="doctor">Choose a Doctor:</label>
+                <select id="doctor" name="doctor" required>
+                    <option value="">--Please choose a doctor--</option>
+                    <option value="Dr. Smith">Dr. Smith</option>
+                    <option value="Dr. Johnson">Dr. Johnson</option>
+                    <option value="Dr. Williams">Dr. Williams</option>
+                    <option value="Dr. Jones">Dr. Jones</option>
+                </select>
+
+                <label for="date">Preferred Date:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="time">Preferred Time:</label>
+                <select id="time" name="time" required>
+                    <option value="">--Please choose a doctor first--</option>
+                </select>
+
+                
+
+                <label for="notes">Special Requests/Notes:</label>
+                <textarea id="notes" name="notes"></textarea>
+
+                <button type="submit">Book Appointment</button>
+            </form>
+
+            <h2>Your Booked Appointments</h2>
+            <ul id="appointments-list"></ul>
+
+            <div id="message"></div>
+        </div>
+    </div>
+
+    <script>
+        // Define available times for each doctor
+        var doctorAvailability = {
+            "Dr. Smith": ["08:00", "08:30", "09:00"],
+            "Dr. Johnson": ["09:30", "10:00", "10:30"],
+            "Dr. Williams": ["11:00", "11:30", "12:00"],
+            "Dr. Jones": ["13:00", "13:30", "14:00"]
+        };
+
+        // Function to populate time options based on selected doctor
+        function populateTimes() {
+            var doctorSelect = document.getElementById('doctor');
+            var timeSelect = document.getElementById('time');
+            var selectedDoctor = doctorSelect.value;
+            var availableTimes = doctorAvailability[selectedDoctor];
+            timeSelect.innerHTML = '<option value="">--Please choose a time--</option>';
+            availableTimes.forEach(function(time) {
+                var option = document.createElement('option');
+                option.value = time;
+                option.textContent = time;
+                timeSelect.appendChild(option);
+            });
+        }
+
+        // Event listener for doctor selection to dynamically populate available times
+        document.getElementById('doctor').addEventListener('change', populateTimes);
+
+        // Function to render booked appointments
+        function renderAppointments() {
+            var appointmentsList = document.getElementById('appointments-list');
+            appointmentsList.innerHTML = '';
+            var appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+            appointments.forEach(function(appointment, index) {
+                var listItem = document.createElement('li');
+                listItem.textContent = `${appointment.date} - ${appointment.time}, Dr. ${appointment.doctor}`;
+                var declineButton = document.createElement('button');
+                declineButton.textContent = 'Decline';
+                declineButton.className = 'decline';
+                declineButton.addEventListener('click', function() {
+                    // Remove the appointment from the list and update Local Storage
+                    appointments.splice(index, 1);
+                    localStorage.setItem('appointments', JSON.stringify(appointments));
+                    renderAppointments();
+                });
+                listItem.appendChild(declineButton);
+                appointmentsList.appendChild(listItem);
+            });
+        }
+
+        // Render existing appointments on page load
+        renderAppointments();
+
+        document.getElementById('appointment-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var name = document.getElementById('name').value;
+            var phone = document.getElementById('phone').value;
+            var date = document.getElementById('date').value;
+            var time = document.getElementById('time').value;
+            var doctor = document.getElementById('doctor').value;
+            var notes = document.getElementById('notes').value;
+
+            // Check if the selected time is available
+            var appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+            var isTimeAvailable = !appointments.some(function(appointment) {
+                return appointment.doctor === doctor && appointment.time === time && appointment.date === date;
+            });
+
+            if (!isTimeAvailable) {
+                document.getElementById('message').textContent = 'Selected time is not available. Please choose another time.';
+                return;
+            }
+
+            // Store the appointment data in local storage
+            var appointmentData = {
+                name: name,
+                phone: phone,
+                date: date,
+                time: time,
+                doctor: doctor,
+                notes: notes
+            };
+            appointments.push(appointmentData);
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+
+            document.getElementById('message').textContent = 'Appointment booked successfully!';
+            renderAppointments(); // Update the list of booked appointments
+        });
+    </script>
+</body>
+</html>

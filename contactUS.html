@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>PLUS</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- font awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- owl carousel -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- custom css -->
+        <link rel = "stylesheet" href = "assets/css/main.css" />
+        <link rel = "stylesheet" href = "assets/css/utilities.css" />
+        <!-- normalize.css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+    <body>
+
+   
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, textarea {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #519cba;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Rating stars */
+        .rating {
+            unicode-bidi: bidi-override;
+            direction: rtl;
+            text-align: center;
+        }
+
+        .rating > input {
+            display: none;
+        }
+
+        .rating > label {
+            display: inline-block;
+            padding: 5px;
+            font-size: 24px;
+            color: #ddd;
+            cursor: pointer;
+        }
+
+        .rating > input:checked ~ label,
+        .rating > label:hover {
+            color: #007BFF;
+        }
+
+        .rating > input:checked + label:hover,
+        .rating > input:checked ~ label:hover,
+        .rating > label:hover ~ input:checked ~ label,
+        .rating > input:checked ~ label:hover ~ label {
+            color: #0056b3;
+        }
+        nav {
+            background-color: #519cba;
+            color: #fff;
+            padding: 10px 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="staffHome.html">Home</a></li>
+            <li><a href="staffAppointments.html">Appointments</a></li>
+            <li><a href="Register.html">Register</a></li>
+            <li><a href="Subscription.html">Subscription</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Contact Us</h1>
+        <form id="contact-form">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <div class="rating">
+                <input type="radio" id="star5" name="rating" value="5">
+                <label for="star5" title="Excellent">&#9733;</label>
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4" title="Good">&#9733;</label>
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3" title="Average">&#9733;</label>
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2" title="Poor">&#9733;</label>
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1" title="Terrible">&#9733;</label>
+            </div>
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+</body>
+
+
+                
+
+            <footer class = "footer">
+                <div class = "container">
+                    <div class = "footer-content">
+                        <div class = "footer-list d-grid text-white">
+                            <div class = "footer-item">
+                                <a href = "#" class = "navbar-brand d-flex align-items-center">
+                                    <span class = "brand-shape d-inline-block text-white">ZM</span>
+                                    <span class = "brand-text fw-7">Z&M</span>
+                                </a>
+                                <p class = "text-white">This is the contact page for the Devlopment company Z&M provides progressive, and affordable healthcare, accessible on mobile and online for everyone</p>
+                                <p class = "text-white copyright-text">&copy; Z&M PTY LTD 2023. All rights reserved.</p>
+                            </div>
+
+                           
+
+                            <div class = "footer-item">
+                                <h3 class = "footer-item-title">Address</h3>
+                                <ul class = "footer-links">
+                                    <li><a href = "#">Iraq</a></li>
+                                    <li><a href = "#">Sulaimani</a></li>
+                                    <li><a href = "#">AUIS</a></li>
+
+                                </ul>
+                            </div>
+                            <div class = "footer-item">
+                                <h3 class = "footer-item-title">Contact</h3>
+                                <ul class = "footer-links">
+                                    <li>Phone:07511234567</li>
+                                    <li>Email:zk21184@auis.edu.krd</li>
+                                    <li>Email:mh21096@auis.edu.krd</li>
+
+
+                                    
+                                </ul>
+                        
+
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "footer-element-1">
+                    <img src = "assets/images/element-img-4.png" alt = "">
+                </div>
+                <div class = "footer-element-2">
+                    <img src = "assets/images/element-img-5.png" alt = "">
+                </div>
+            </footer>
+        </div>
+        
+
+
+
+
+
+
+
+        <!-- jquery cdn -->
+        <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+        <!-- owl carousel -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- custom js -->
+        <script src = "assets/js/script.js"></script>
+    
+</html>
